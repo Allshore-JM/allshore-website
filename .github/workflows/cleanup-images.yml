@@ -1,0 +1,17 @@
+name: Remove unused photos (one-time)
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Remove photos no longer used by the site
+        run: |
+          git rm -f --ignore-unmatch img/underwater-inspection.jpg img/residential.jpg img/candlewood.jpg img/lago-mar.jpg img/blaisdell-railing.jpg img/hero-burullus.jpg img/burullus-crew.jpg img/bridge-underside.jpg img/bridge-inspection.jpg img/moorings.jpg img/bollard.jpg img/dock-install.jpg img/waikiki-shell-model.jpg
+          git config user.name "github-actions[bot]"
+          git config user.email "41898237+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Remove unused photos" || echo "nothing to commit"
+          git push
